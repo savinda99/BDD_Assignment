@@ -7,27 +7,29 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import com.actitime.qa.util.TestUtil;
 import com.actitime.qa.util.WebEventListener;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestBase {
 
 	public static WebDriver driver;
 	public static Properties properties;
-	
+	public static WebDriverWait wait;
 	public  static EventFiringWebDriver e_driver;
 	public static WebEventListener eventListener;
+	public static WebElement webElement;
 	
 	public TestBase() {
 		
 		try {
 			properties = new Properties();
-			FileInputStream iprop = new FileInputStream(System.getProperty("user.dir")+ "/src/main/java/com/"
-					+ "actitime/qa/config/config.properties");
+			FileInputStream iprop = new FileInputStream(System.getProperty("user.dir")+ "/src/main/java/com/actitime/qa/config/config.properties");
 			properties.load(iprop);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -38,7 +40,7 @@ public class TestBase {
 		
 		public static void initialization(){
 		
-String browserName = properties.getProperty("browser");
+		String browserName = properties.getProperty("browser");
 		
 		if(browserName.equals("chrome")){
 			System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+ "\\src\\main\\resources\\webDrivers\\chromedriver.exe");
@@ -64,7 +66,7 @@ String browserName = properties.getProperty("browser");
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
-		
+		wait = new WebDriverWait(driver, 10);
 		driver.get(properties.getProperty("url"));
 		
 		}

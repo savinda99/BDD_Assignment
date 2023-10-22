@@ -1,19 +1,18 @@
 package com.actitime.qa.pages;
 
+import functions.PageFunctions;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.actitime.qa.base.TestBase;
 
-import net.bytebuddy.asm.Advice.Return;
-
 public class HomePage extends TestBase {
 	
 	Logger log = Logger.getLogger(HomePage.class);
-	
-	
+	PageFunctions pageFunctions = new PageFunctions();
 	//Page Factory - Object Repository
 	
 		@FindBy(xpath = "//a[@class='content tasks']")
@@ -24,6 +23,8 @@ public class HomePage extends TestBase {
 		
 		@FindBy(xpath = "//div[@id='logo_aT']")
 		WebElement actitimeLogo;
+
+		private By usersLink = By.xpath( "//a[@class='content users']");
 		
 	
 		
@@ -65,6 +66,11 @@ public class HomePage extends TestBase {
 	         reportsLink.click();
 	         return new ReportsPage();
 			
+		}
+
+		public UsersPage clickOnUsersLink() throws InterruptedException {
+			pageFunctions.waitAndClickOnElement(usersLink);
+			return  new UsersPage();
 		}
 	
 }

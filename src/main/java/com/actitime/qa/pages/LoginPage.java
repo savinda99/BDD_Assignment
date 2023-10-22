@@ -1,5 +1,6 @@
 package com.actitime.qa.pages;
 
+import functions.PageFunctions;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +17,7 @@ import net.bytebuddy.asm.Advice.Return;
 public class LoginPage extends TestBase {
 	
 	//Page Factory - Object Repository
-	
+	PageFunctions pageFunctions;
 	@FindBy(xpath = "//input[@name='username']")
 	@CacheLookup
 	WebElement userName;
@@ -48,7 +49,7 @@ public class LoginPage extends TestBase {
 	public LoginPage() {
 		
 		PageFactory.initElements(driver, this);
-		
+		pageFunctions = new PageFunctions();
 		
 		
 	}
@@ -60,8 +61,7 @@ public class LoginPage extends TestBase {
 		
 	}
 	
-	public HomePage loging(String uName, String pword) {
-		
+	public HomePage loging(String uName, String pword) throws InterruptedException {
 		userName.sendKeys(uName);
 		passWord.sendKeys(pword);
 		loginButton.click();
