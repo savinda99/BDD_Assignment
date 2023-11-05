@@ -30,7 +30,7 @@ public class CreateUserTest extends TestBase {
         softAssert = new SoftAssert();
         homePage = loginPage.loging(properties.getProperty("username"), properties.getProperty("password"));
     }
-    @Test
+    @Test(testName = "Create User Successfully", description = "Verify Whether Users are Created Successfully with Valid Details")
     public void createUser() throws InterruptedException {
         homePage.clickOnUsersLink();
         userPage.clickOnNewUser();
